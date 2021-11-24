@@ -48,3 +48,6 @@ SELECT SUM(p.monto) AS "suma pagos" FROM pago p
 SELECT idpasajero, TRUNCATE(SUM(monto),2) AS "suma todos los pagos" FROM pago WHERE idpasajero=1 GROUP BY idpasajero
 ```
 > 4. Promedio de los pagos que realizó un pasajero.
+```
+SELECT idpasajero, AVG(monto) AS "promedio de todos los pagos" FROM pago WHERE idpasajero=1 GROUP BY idpasajero
+```
