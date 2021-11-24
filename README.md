@@ -36,6 +36,15 @@ SELECT MIN(salario) AS "Salario mínimo" FROM profesor WHERE fecha_nacimiento BE
 >
 > Escriba las siguientes consultas:
 > 1. Cantidad de pasajeros por país
-> 3. Suma de todos los pagos realizados
-> 4. Suma de todos los pagos que realizó un pasajero. El monto debe aparecer con dos decimales.
-> 5. Promedio de los pagos que realizó un pasajero.
+```
+SELECT p.nombre, COUNT(*) AS "cant pasajeros" FROM pasajero ps INNER JOIN pais p ON ps.idpais=p.idpais GROUP BY p.idpais
+```
+> 2. Suma de todos los pagos realizados
+```
+SELECT SUM(p.monto) AS "suma pagos" FROM pago p
+```
+> 3. Suma de todos los pagos que realizó un pasajero. El monto debe aparecer con dos decimales.
+```
+SELECT idpasajero, TRUNCATE(SUM(monto),2) AS "suma todos los pagos" FROM pago WHERE idpasajero=1 GROUP BY idpasajero
+```
+> 4. Promedio de los pagos que realizó un pasajero.
