@@ -1,7 +1,11 @@
 # SQL2-CustomsExercises
 
 Ejercitación de base de datos utilizando SQL  
-temas: ***funciones de agregación, agrupación de datos e índices***
+temas: 
+- Funciones de agregación
+- Consultas multitablas
+- Índices
+- Queries anidadas
 
 ## ***Funciones de agregación***
 A partir de las siguientes tablas...  
@@ -50,4 +54,42 @@ SELECT idpasajero, TRUNCATE(SUM(monto),2) AS "suma todos los pagos" FROM pago WH
 > 4. Promedio de los pagos que realizó un pasajero.
 ```
 SELECT idpasajero, AVG(monto) AS "promedio de todos los pagos" FROM pago WHERE idpasajero=1 GROUP BY idpasajero
+```
+## Consultas Multitabla
+
+> 1. Nombre, apellido y cursos que realiza cada estudiante  
+```
+SELECT e.nombre,e.apellido, c.nombre AS 'Nombre del curso', c.descripcion, c.codigo FROM estudiante e 
+	INNER JOIN inscripcion i ON e.legajo=i.estudiante_legajo
+		INNER JOIN curso c WHERE i.curso_codigo = c.codigo
+```
+> 2. Nombre, apellido y cursos que realiza cada estudiante, ordenados por el nombre del curso  
+```
+SELECT e.nombre,e.apellido, c.nombre AS 'Nombre del curso', c.descripcion, c.codigo FROM estudiante e 
+	INNER JOIN inscripcion i ON e.legajo=i.estudiante_legajo
+		INNER JOIN curso c WHERE i.curso_codigo = c.codigo ORDER BY c.nombre
+```
+> 3. Nombre, apellido y cursos que dicta cada profesor  
+```
+SELECT p.nombre, p.apellido, c.nombre AS 'Nombre del curso'
+ FROM curso c INNER JOIN profesor p ON p.id = c.profesor_id
+```
+> 4. Nombre, apellido y cursos que dicta cada profesor, ordenados por el nombre del curso  
+```
+SELECT p.nombre, p.apellido, c.nombre AS 'Nombre del curso'
+ FROM curso c INNER JOIN profesor p ON p.id = c.profesor_id order by c.nombre
+```
+> 5. Cupo disponible para cada curso (Si el cupo es de 35 estudiantes y hay 5 inscriptos, el cupo disponible será 30)  
+```
+SELECT nombre, cupo - COUNT(curso_codigo) AS "cupos disponibles" 
+	FROM curso c LEFT JOIN inscripcion i 
+	ON c.codigo=i.curso_codigo
+	GROUP BY curso_codigo
+```
+> 6. Cursos cuyo cupo disponible sea menor a 10
+```
+SELECT nombre, cupo - COUNT(*) AS "cupos disponibles" 
+	FROM curso c LEFT JOIN inscripcion i 
+	ON c.codigo=i.curso_codigo
+	GROUP BY curso_codigo HAVING COUNT(*)>=10
 ```
