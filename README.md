@@ -121,3 +121,21 @@ ALTER TABLE persona ADD PRIMARY KEY (id);
 > Consulte los datos para visualizar el orden de registros.
   
 ![imagen](https://user-images.githubusercontent.com/65373208/143690377-21a4b6ad-c2a2-437b-b4b8-039197779880.png)
+
+
+## Queries Anidadas
+
+> Escriba una consulta que devuelva la cantidad de profesores que dictan más de un curso en el turno Noche.
+```
+SELECT COUNT(*) FROM (
+	SELECT p.nombre, COUNT(*) FROM profesor p 
+		INNER JOIN curso c ON p.id = c.profesor_id 
+		WHERE c.turno = "Noche"
+		GROUP BY profesor_id HAVING COUNT(*)>1
+		) AS query_anidada
+```
+> Escriba una consulta para obtener la información de todos los estudiantes que no realizan el curso con código 105.
+```
+SELECT * FROM estudiante e WHERE e.legajo NOT IN (
+	SELECT estudiante_legajo FROM inscripcion i WHERE curso_codigo = 105)
+```
