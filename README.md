@@ -93,3 +93,31 @@ SELECT nombre, cupo - COUNT(*) AS "cupos disponibles"
 	ON c.codigo=i.curso_codigo
 	GROUP BY curso_codigo HAVING COUNT(*)>=10
 ```
+
+## Índices
+
+> Crear una tabla persona sin primary key y solamente con dos campos: id y nombre
+```
+CREATE TABLE `persona` (
+  `id` INT(11) NOT NULL,
+  `nombre` VARCHAR(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=INNODB DEFAULT CHARSET=latin1;
+```
+> Inserte datos siguiendo un orden no secuencial para el id.
+```
+INSERT INTO persona (id, nombre) VALUES (3, "Damian");
+INSERT INTO persona (id, nombre) VALUES (5, "Julian");
+INSERT INTO persona (id, nombre) VALUES (1, "Braian");
+```
+> Consulte los datos para visualizar el orden de registros.  
+
+![imagen](https://user-images.githubusercontent.com/65373208/143690397-250d4854-487a-40b2-8488-82604677a4bb.png)  
+
+> Agregue una clave primaria para el campo id.
+```
+ALTER TABLE persona ADD PRIMARY KEY (id);
+```
+> Consulte los datos para visualizar el orden de registros.
+  
+![imagen](https://user-images.githubusercontent.com/65373208/143690377-21a4b6ad-c2a2-437b-b4b8-039197779880.png)
