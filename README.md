@@ -139,3 +139,43 @@ SELECT COUNT(*) FROM (
 SELECT * FROM estudiante e WHERE e.legajo NOT IN (
 	SELECT estudiante_legajo FROM inscripcion i WHERE curso_codigo = 105)
 ```
+
+## Ejercitación Final
+
+> Escriba una consulta que devuelva el legajo y la cantidad de cursos que realiza cada estudiante.  
+```
+SELECT legajo, COUNT(legajo) AS "Cantidad de cursos que realiza" FROM estudiante e 
+	INNER JOIN inscripcion i 
+	ON i.estudiante_legajo = e.legajo
+	GROUP BY legajo
+```
+> Escriba una consulta que devuelva el legajo y la cantidad de cursos de los estudiantes que realizan más de un curso.  
+```
+SELECT legajo, COUNT(legajo) AS "estudiantes que realizan más de un curso" FROM estudiante e 
+	INNER JOIN inscripcion i 
+	ON i.estudiante_legajo = e.legajo
+	GROUP BY legajo HAVING COUNT(*)>1
+```
+> Escriba una consulta que devuelva la información de los estudiantes que no realizan ningún curso.  
+```
+SELECT * FROM estudiante e WHERE e.legajo NOT IN 
+	(SELECT estudiante_legajo FROM inscripcion i)
+```
+> Escriba para cada tabla, los index (incluyendo su tipo) que tiene cada una.  
+```
+Tabla PROFESOR, columna "id", tipo Primary  
+Tabla CURSO, columna "codigo", tipo Primary  
+	Tabla CURSO, columna "PROFESOR_id", tipo KEY  
+Tabla INSCRIPCION, columna "numero", tipo Primary  
+	Tabla INSCRIPCION, columna "CURSO_codigo", tipo KEY  
+	Tabla INSCRIPCION, columna "ESTUDIANTE_legajo", tipo KEY  
+Tabla ESTUDIANTE, columna "legajo", tipo Primary
+```
+> Liste toda la información sobre los estudiantes que realizan cursos con los profesores de apellido “Pérez” y “Paz”.  
+```
+SELECT * FROM estudiante e 
+	INNER JOIN inscripcion i ON e.legajo = i.estudiante_legajo
+	INNER JOIN curso c ON i.curso_codigo = c.codigo
+	INNER JOIN profesor p ON c.profesor_id = p.id
+		WHERE p.apellido IN ("Pérez", "Paz")
+```
