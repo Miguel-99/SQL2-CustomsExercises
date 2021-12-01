@@ -2,9 +2,9 @@
 
 Ejercitación de base de datos utilizando SQL  
 temas: 
-- Funciones de agregación
-- Consultas multitablas
-- Índices
+- [Funciones de agregación](#Funciones-de-agregación)
+- [Consultas multitablas](#Consultas-Multitabla)
+- [Índices](#Índices)
 - [Queries anidadas](#Queries-Anidadas)
 
 ## ***Funciones de agregación***
@@ -56,6 +56,8 @@ SELECT idpasajero, TRUNCATE(SUM(monto),2) AS "suma todos los pagos" FROM pago WH
 SELECT idpasajero, AVG(monto) AS "promedio de todos los pagos" FROM pago WHERE idpasajero=1 GROUP BY idpasajero
 ```
 ## Consultas Multitabla
+
+[Consultar modelo relacional](#Funciones-de-agregación)
 
 > 1. Nombre, apellido y cursos que realiza cada estudiante  
 ```
@@ -125,6 +127,8 @@ ALTER TABLE persona ADD PRIMARY KEY (id);
 
 ## Queries Anidadas
 
+[Consultar modelo relacional](#Funciones-de-agregación)
+
 > Escriba una consulta que devuelva la cantidad de profesores que dictan más de un curso en el turno Noche.
 ```
 SELECT COUNT(*) FROM (
@@ -141,6 +145,8 @@ SELECT * FROM estudiante e WHERE e.legajo NOT IN (
 ```
 
 ## Ejercitación Final
+
+[Consultar modelo relacional](#Funciones-de-agregación)
 
 > Escriba una consulta que devuelva el legajo y la cantidad de cursos que realiza cada estudiante.  
 ```
